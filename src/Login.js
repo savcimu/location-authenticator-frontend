@@ -13,9 +13,11 @@ const Login=(props)=>{
             setUserIn(userIn);
         },
     [])
+
     if(userIn){
         navigate('/Dashboard');
     }
+
     const [user, setUser] = useState({
         email:"",
         password:""
@@ -45,10 +47,13 @@ const Login=(props)=>{
             if(result.data.Status === "200"){
                 window.localStorage.setItem('email', result.data.email);
                 window.localStorage.setItem('userName', (result.data.first_name + ' ' + result.data.last_name));
-                //window.localStorage.setItem('location', (result.data.lat + ' ' + result.data.lng)); 
+                //window.localStorage.setItem('location', (result.data.lat + ' ' + result.data.lng));
                 navigate("/Dashboard");
             }
-            else{
+            else if (result.data.Status === "201"){
+                window.localStorage.setItem('user_id', result.data.user_id);
+                navigate("/Verification");
+            }else{
                 alert(result.data.message);
             }
         })

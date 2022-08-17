@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useGeolocated } from "react-geolocated";
 
 const GeoLocation = () => {
     const [location , setLocation] = useState({
