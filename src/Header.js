@@ -1,12 +1,23 @@
+import { useEffect, useState } from 'react';
 import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom'
+
 const Header=()=>{
+  
+  const [user, setUser] = useState('');
+  useEffect(()=>{
+    var userName = localStorage.getItem('userName');
+    setUser(userName);
+  },
+  [])
+
+  const Logout = () => {
+    localStorage.clear();
+  }
+
     return(
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
     <div className="container-fluid">
-      <Link to='/' className="navbar-brand">App</Link>
-      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-      </button>
+     
       <div className="collapse navbar-collapse" id="navbarText">
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item">
@@ -20,7 +31,8 @@ const Header=()=>{
           </li>
         </ul>
         <span className="navbar-text">
-          Welcome
+        {user ? " Welcome:" : ""} {user} {user ? <Link to='/Login' onClick={Logout}>Logout</Link> : ""} 
+          
         </span>
       </div>
     </div>
